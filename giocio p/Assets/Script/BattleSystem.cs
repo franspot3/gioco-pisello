@@ -2,14 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Gamestate{Start, PlayerTurn, EnemyTurn, Won, Lost }
+public enum Battlestate{Start, PlayerTurn, EnemyTurn, Won, Lost }
 public class BattleSystem : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+
+    public GameObject PlayerUnit;
+    public GameObject EnemyUnit;
+
+    public Transform EnemySpawn;
+    public Transform PlayerSpawn;
+
+
+    public Battlestate state;
     void Start()
     {
-        
+        state = Battlestate.Start;
+        StartBattle();
     }
 
+
+    void StartBattle() {
+        Instantiate (PlayerUnit, PlayerSpawn);
+        Instantiate (EnemyUnit, EnemySpawn);  
+    }
 
 }
