@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class unit : MonoBehaviour {
+public class Unit : MonoBehaviour {
     public int MaxHp;
     public int CurrentHp;
     public int MaxMana;
@@ -23,5 +23,17 @@ public class unit : MonoBehaviour {
     public int CurrentAccuracy;
     public int Evasion;
     public int CurrentEvasion;
+
+
+    public bool TakeDamage(int Dmg){
+
+    CurrentHp -= dmg;
+
+    if(CurrentHp <= 0 ){
+          return true;
+    }else{
+          return false;}
+
+    }
 
 }
