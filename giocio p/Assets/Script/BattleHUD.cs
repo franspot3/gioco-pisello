@@ -4,16 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class NewBehaviourScript : MonoBehaviour
+public class BattleHUD : MonoBehaviour
 {
 
 
-public Slider HpSlider;
+    public Slider HpSlider;
 
-public void SetHUD(Unit unit){
+    public void SetHUD(Unit unit){
 
-//HpSlider.maxValue = unit.maxHP;
-//HpSlider.value = unit.currentHP;
-}
+        HpSlider.maxValue = unit.MaxHp;
+        HpSlider.value = unit.CurrentHp;
+     }
+
+    public void SetHp(int hp) {
+        HpSlider.value = hp;
+     }
 
 }

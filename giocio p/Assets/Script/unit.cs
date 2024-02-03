@@ -27,12 +27,23 @@ public class Unit : MonoBehaviour {
 
     public bool TakeDamage(int Dmg){
 
-    CurrentHp -= dmg;
+    CurrentHp -= Dmg;
 
     if(CurrentHp <= 0 ){
           return true;
     }else{
           return false;}
+
+    }
+
+    public void Heal(int amount) {
+
+        CurrentHp += amount;
+
+        if (CurrentHp > MaxHp ) {
+            CurrentHp = MaxHp;
+        }
+        
 
     }
 

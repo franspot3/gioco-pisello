@@ -139,7 +139,7 @@ MonoBehaviour:
   CurrentArmor: 50
   MagicAmor: 50
   CurrentMagicArmor: 50
-  Attack: 50
+  Attack: 28
   CurrentAttack: 50
   MagicAttack: 50
   CurrentMagicAttack: 50

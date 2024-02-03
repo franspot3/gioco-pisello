@@ -7,20 +7,32 @@ using UnityEngine.UI;
 public enum Battlestate{Start, PlayerTurn, EnemyTurn, Won, Lost }
 public class BattleSystem : MonoBehaviour
 {
-
+    //int turn = 0;
 
     public GameObject PlayerUnit;
     public GameObject EnemyUnit;
+    public GameObject Player2Unit;
+    public GameObject Enemy2Unit;
 
+    
     public Transform EnemySpawn;
     public Transform PlayerSpawn;
+    public Transform Enemy2Spawn;
+    public Transform Player2Spawn;
 
     Unit playerUnit;
     Unit enemyUnit;
+    //Unit[] playerUnit = new Unit[4];
+    //Unit[] enemyUnit = new Unit[4];
+    
 
+    public Calculator calculator;
+
+    public BattleHUD playerHUD;
+    public BattleHUD enemyHUD;
 
     public Battlestate state;
-   
+ 
     void Start()
     {
         state = Battlestate.Start;
@@ -32,14 +44,24 @@ public class BattleSystem : MonoBehaviour
 
 
        GameObject playerGO = Instantiate (PlayerUnit, PlayerSpawn);
-       playerUnit = playerGO.GetComponent<Unit>();
+        playerUnit = playerGO.GetComponent<Unit>();
 
-       GameObject enemyGO = Instantiate (EnemyUnit, EnemySpawn);  
-       enemyUnit = enemyGO.GetComponent<Unit>();
+       GameObject enemyGO = Instantiate (EnemyUnit, EnemySpawn);
+        enemyUnit = enemyGO.GetComponent<Unit>();
+
+      /* GameObject player2GO = Instantiate(Player2Unit, Player2Spawn);
+        playerUnit = player2GO.GetComponent<Unit>();
+
+       GameObject enemy2GO = Instantiate(Enemy2Unit, Enemy2Spawn);
+        enemyUnit = enemy2GO.GetComponent<Unit>();*/
+
+        playerHUD.SetHUD(playerUnit);
+        enemyHUD.SetHUD(enemyUnit);
 
         yield return new WaitForSeconds(2f);
 
-        state = Battlestate.PlayerTurn;
+
+       state = Battlestate.PlayerTurn;
         playerturn ();
     
     }
@@ -48,8 +70,8 @@ public class BattleSystem : MonoBehaviour
 
     //danneggiare nemico
 
-    bool ËMorto = EnemyUnit.TakeDamage(playerUnit.damage);
-    //enemyHUD.setHP(enemyUnit.CurrentHp);
+    bool ËMorto = enemyUnit.TakeDamage(calculator.DmgCalculator(playerUnit.Attack));
+    enemyHUD.SetHp(enemyUnit.CurrentHp);
 
 
     yield return new WaitForSeconds(2f);
@@ -70,9 +92,9 @@ public class BattleSystem : MonoBehaviour
     
     IEnumerator EnemyTurn(){
 
-     bool ËMorto = playerUnit.TakeDamage(enemyUnit.damage);
+     bool ËMorto = playerUnit.TakeDamage(calculator.DmgCalculator(enemyUnit.Attack));
 
-     //playerHUD.SetHP(playerUnit.CurrentHp);
+     playerHUD.SetHp(playerUnit.CurrentHp);
 
      yield return new WaitForSeconds(1f);
      if(ËMorto){
@@ -99,8 +121,22 @@ public class BattleSystem : MonoBehaviour
 
 
     void playerturn(){
-
+        // serve per le scritte dopo penso
     }
+
+
+    IEnumerator PlayerHeal() {
+        playerUnit.Heal(calculator.HealCalculator(playerUnit.MagicAttack));
+
+        playerHUD.SetHp(playerUnit.CurrentHp);
+
+        yield return new WaitForSeconds(2f);
+
+        state = Battlestate.EnemyTurn;
+        StartCoroutine(EnemyTurn());
+    }
+
+
 
    public void AttackButton(){
 
@@ -112,6 +148,15 @@ public class BattleSystem : MonoBehaviour
 
     }
 
+    public void HealButton() {
+
+        if (state != Battlestate.PlayerTurn)
+            return;
+
+        StartCoroutine(PlayerHeal());
+
+
+    }
 
 
 }
