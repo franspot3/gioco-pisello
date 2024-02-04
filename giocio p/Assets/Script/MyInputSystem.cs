@@ -7,7 +7,7 @@ public class MyInputSystem : MonoBehaviour
 {
 
     public Transform[] EnemySpawn;
-    int selected = 1;
+    public int selected = 1;
     private void Awake() {
         transform.position = EnemySpawn[selected].position + new Vector3(0, 2.41f, 0);
 

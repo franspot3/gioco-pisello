@@ -143,7 +143,7 @@ MonoBehaviour:
   CurrentAttack: 50
   MagicAttack: 50
   CurrentMagicAttack: 50
-  Speed: 50
+  Speed: 28
   CurrentSpeed: 50
   AttackSpeed: 50
   CurrentAttackSpeed: 50

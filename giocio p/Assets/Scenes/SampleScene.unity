@@ -1994,6 +1994,7 @@ MonoBehaviour:
   - {fileID: 1669551823}
   - {fileID: 751446979}
   calculator: {fileID: 514762798}
+  Target: {fileID: 1710521976}
   playerHUD:
   - {fileID: 953232197}
   - {fileID: 1450493689}
@@ -3299,6 +3300,7 @@ MonoBehaviour:
   EnemySpawn:
   - {fileID: 1669551823}
   - {fileID: 751446979}
+  selected: 1
 --- !u!212 &1710521977
 SpriteRenderer:
   m_ObjectHideFlags: 0
