@@ -9,27 +9,21 @@ public class BattleSystem : MonoBehaviour
 {
     //int turn = 0;
 
-    public GameObject PlayerUnit;
-    public GameObject EnemyUnit;
-    public GameObject Player2Unit;
-    public GameObject Enemy2Unit;
+    public GameObject[] PlayerUnit;
+    public GameObject[] EnemyUnit;
 
-    
-    public Transform EnemySpawn;
-    public Transform PlayerSpawn;
-    public Transform Enemy2Spawn;
-    public Transform Player2Spawn;
+    public Transform[] PlayerSpawn;
+    public Transform[] EnemySpawn; 
 
-    Unit playerUnit;
-    Unit enemyUnit;
-    //Unit[] playerUnit = new Unit[4];
-    //Unit[] enemyUnit = new Unit[4];
+   
+    Unit[] playerUnit = new Unit[4];
+    Unit[] enemyUnit = new Unit[4];
     
 
     public Calculator calculator;
 
-    public BattleHUD playerHUD;
-    public BattleHUD enemyHUD;
+    public BattleHUD[] playerHUD;
+    public BattleHUD[] enemyHUD;
 
     public Battlestate state;
  
@@ -42,30 +36,27 @@ public class BattleSystem : MonoBehaviour
 
    IEnumerator StartBattle() {
 
+    for(int i=0; i<=1; i++){
+       GameObject playerGO = Instantiate (PlayerUnit[i], PlayerSpawn[i]);
+        playerUnit[i] = playerGO.GetComponent<Unit>();
 
-       GameObject playerGO = Instantiate (PlayerUnit, PlayerSpawn);
-        playerUnit = playerGO.GetComponent<Unit>();
-
-       GameObject enemyGO = Instantiate (EnemyUnit, EnemySpawn);
-        enemyUnit = enemyGO.GetComponent<Unit>();
-
-      /* GameObject player2GO = Instantiate(Player2Unit, Player2Spawn);
-        playerUnit = player2GO.GetComponent<Unit>();
-
-       GameObject enemy2GO = Instantiate(Enemy2Unit, Enemy2Spawn);
-        enemyUnit = enemy2GO.GetComponent<Unit>();*/
-
-        playerHUD.SetHUD(playerUnit);
-        enemyHUD.SetHUD(enemyUnit);
-
-        yield return new WaitForSeconds(2f);
+       GameObject enemyGO = Instantiate (EnemyUnit[i], EnemySpawn[i]);
+        enemyUnit[i] = enemyGO.GetComponent<Unit>();
 
 
-       state = Battlestate.PlayerTurn;
-        playerturn ();
-    
+            playerHUD[i].SetHUD(playerUnit[i]);
+            enemyHUD[i].SetHUD(enemyUnit[i]);
+        }
+        
+
+            yield return new WaitForSeconds(2f);
+
+
+           state = Battlestate.PlayerTurn;
+           // playerturn ();
+        
     }
-
+    /*
     IEnumerator PlayerAttack(){
 
     //danneggiare nemico
@@ -158,7 +149,7 @@ public class BattleSystem : MonoBehaviour
 
     }
 
-
+*/
 }
 
 
