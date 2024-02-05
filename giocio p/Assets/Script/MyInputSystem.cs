@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class MyInputSystem : MonoBehaviour
 {
 
+
     public Transform[] EnemySpawn;
     public int selected = 1;
     private void Awake() {
@@ -39,4 +40,5 @@ public class MyInputSystem : MonoBehaviour
         transform.position = EnemySpawn[selected].position + new Vector3(0, 2.41f, 0);
 
     }
+
 }
