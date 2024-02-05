@@ -1998,6 +1998,16 @@ MonoBehaviour:
   - {fileID: 751446979}
   deathenemies: 0
   deathplayers: 0
+  playerUnit:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  enemyUnit:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   calculator: {fileID: 514762798}
   Target: {fileID: 1710521976}
   Activeturn: {fileID: 1409272119}
@@ -3403,9 +3413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0496bdd61ee9b294695ce432c53ea1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemySpawn:
-  - {fileID: 1669551823}
-  - {fileID: 751446979}
+  BattleSystem: {fileID: 760474341}
   selected: 1
 --- !u!212 &1710521977
 SpriteRenderer:

@@ -24,8 +24,8 @@ public class BattleSystem : MonoBehaviour
    public int deathplayers = 0;
 
 
-    Unit[] playerUnit = new Unit[4];
-    Unit[] enemyUnit = new Unit[4];
+    public Unit[] playerUnit = new Unit[4];
+    public Unit[] enemyUnit = new Unit[4];
     
 
     public Calculator calculator;
