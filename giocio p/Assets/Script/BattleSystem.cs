@@ -150,7 +150,7 @@ public class BattleSystem : MonoBehaviour
 
      if (ËMorto) {
 
-
+     
              turnOrder [turn] = 2;
              deathplayers ++;
 
@@ -168,16 +168,7 @@ public class BattleSystem : MonoBehaviour
     }
     IEnumerator PlayerAttack() {
 
-       if(enemyUnit[Target.selected].CurrentHp <= 0){
-          Debug.Log("non puoi");
-       state=Battlestate.PlayerTurn;
-
-       yield return null;
-
-       playerturn();
-
-       }
-
+    
         bool ËMorto = enemyUnit[Target.selected].TakeDamage(calculator.DmgCalculator(playerUnit[turnOrder[turn]].Attack));
          enemyHUD[Target.selected].SetHp(enemyUnit[Target.selected].CurrentHp);
 
@@ -187,6 +178,8 @@ public class BattleSystem : MonoBehaviour
         //controlla se nemico morto o no
 
         if (ËMorto) {
+            Target.Control(1);
+
                     turnOrder [turn] = 3;
              deathenemies ++;
              Debug.Log("Ë morto");
@@ -211,7 +204,6 @@ public class BattleSystem : MonoBehaviour
 
        changeturn();
     }
-
 
 
 

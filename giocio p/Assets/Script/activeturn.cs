@@ -25,8 +25,6 @@ if(battlesystem.turnOrder[battlesystem.turn] == 0 || battlesystem.turnOrder[batt
 
 }
 
-
-
  }
 
 }

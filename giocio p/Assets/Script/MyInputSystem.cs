@@ -8,11 +8,12 @@ public class MyInputSystem : MonoBehaviour
 {
 
     
-    
+   
     
 
     public BattleSystem BattleSystem;
 
+    
 
     public int selected = 1;
     int ControlSelected;
@@ -29,33 +30,32 @@ public class MyInputSystem : MonoBehaviour
     
 
     public void LeftChange(InputAction.CallbackContext contex) {
-        Control(-1);
-        if (selected == 1) {
-            selected = 0;
-        } else {
-            selected++;
-        }
-        transform.position = BattleSystem.EnemySpawn[selected].position + new Vector3(0, 2.41f, 0);
+
+
+    Control(-1);
+
+        
 
     }
 
     public void RightChange(InputAction.CallbackContext contex) {
-        Control(1);
-        if (selected == 0) {
-            selected = 1;
-        }
-        else {
-            selected--;
-        }
-        transform.position = BattleSystem.EnemySpawn[selected].position + new Vector3(0, 2.41f, 0);
+
+    Control(1);
+
+   
 
     }
 
-    void Control(int direction) {
-        bool finish = false;
 
+
+
+
+    public void Control(int direction) {
+        bool finish = false;
+        ControlSelected = selected;
         while(finish == false) {
-            ControlSelected = selected + direction;
+         Debug.Log("controllato");
+        ControlSelected += direction;
             if (ControlSelected == 2) {
                 ControlSelected = 0;
             }
@@ -67,8 +67,9 @@ public class MyInputSystem : MonoBehaviour
                 selected = ControlSelected;
                 finish = true;
             }
+            Debug.Log("controllato");
         }
+          transform.position = BattleSystem.EnemySpawn[selected].position + new Vector3(0, 2.41f, 0);
+    }}
 
-    }
 
-}

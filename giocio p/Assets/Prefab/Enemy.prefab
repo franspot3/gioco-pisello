@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHp: 50
-  CurrentHp: 0
+  CurrentHp: 1
   MaxMana: 50
   CurrentMana: 50
   Armor: 50
@@ -143,7 +143,7 @@ MonoBehaviour:
   CurrentAttack: 50
   MagicAttack: 50
   CurrentMagicAttack: 50
-  Speed: 28
+  Speed: 53
   CurrentSpeed: 50
   AttackSpeed: 50
   CurrentAttackSpeed: 50
