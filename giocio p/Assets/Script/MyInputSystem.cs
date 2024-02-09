@@ -67,7 +67,7 @@ public class MyInputSystem : MonoBehaviour
                 selected = ControlSelected;
                 finish = true;
             }
-            Debug.Log("controllato");
+            
         }
           transform.position = BattleSystem.EnemySpawn[selected].position + new Vector3(0, 2.41f, 0);
     }}

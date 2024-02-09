@@ -20,7 +20,7 @@ public class BattleSystem : MonoBehaviour
     public Transform[] PlayerSpawn;
     public Transform[] EnemySpawn; 
 
-   public int deathenemies = 0;
+   public int deathEnemies = 0;
    public int deathplayers = 0;
 
 
@@ -31,6 +31,7 @@ public class BattleSystem : MonoBehaviour
     public Calculator calculator;
     public MyInputSystem Target;
     public activeturn Activeturn;
+    public EnemyAi EnemyAi;
 
 
     public BattleHUD[] playerHUD;
@@ -99,7 +100,7 @@ public class BattleSystem : MonoBehaviour
             Activeturn.IndicateTurn();
         } else {
             state = Battlestate.EnemyTurn;
-            StartCoroutine(EnemyTurn());
+            EnemyTurn();
 
             Activeturn.IndicateTurn();
         }
@@ -107,6 +108,8 @@ public class BattleSystem : MonoBehaviour
     }
     void playerturn() {
         // serve per le scritte dopo penso
+
+        Debug.Log(turnOrder[turn]);
 
         if (turnOrder[turn] == 2 ){
 
@@ -116,83 +119,56 @@ public class BattleSystem : MonoBehaviour
 
 
     }
-    IEnumerator EnemyTurn() {
+    public void EnemyTurn() {
 
-        
-       if (turnOrder[turn] == 3 ){
+        Debug.Log(turnOrder[turn]);
 
-        changeturn();
-        
+        if (turnOrder[turn] == 3) {
+
+            changeturn();
+
         }
-
-        int EnemyTarget;
-        EnemyTarget = Random.Range(0, 2);
-
-        if(playerUnit[EnemyTarget].CurrentHp <= 0){
-         Debug.Log("non puoi");
-         state=Battlestate.EnemyTurn;
-
-         yield return null;
-
-         EnemyTurn();
+        else {
+            EnemyAi.AIDecison();
         }
-
-        bool èMorto = playerUnit[EnemyTarget].TakeDamage(calculator.DmgCalculator(enemyUnit[turnOrder[turn]].Attack));
-
-        
-
-        playerHUD[EnemyTarget].SetHp(playerUnit[EnemyTarget].CurrentHp);
-
-        
-       
-        yield return new WaitForSeconds(1f);
-
-
-     if (èMorto) {
-
-     
-             turnOrder [turn] = 2;
-             deathplayers ++;
-
-             if (deathplayers == 2 ){
-
-               state = Battlestate.Lost;
-               EndBattle();
-
-             }
-         }
-      changeturn();
-
-
-
     }
+
+
     IEnumerator PlayerAttack() {
 
     
         bool èMorto = enemyUnit[Target.selected].TakeDamage(calculator.DmgCalculator(playerUnit[turnOrder[turn]].Attack));
-         enemyHUD[Target.selected].SetHp(enemyUnit[Target.selected].CurrentHp);
+        enemyHUD[Target.selected].SetHp(enemyUnit[Target.selected].CurrentHp);
 
 
-         yield return new WaitForSeconds(2f);
+         
 
         //controlla se nemico morto o no
 
         if (èMorto) {
-            Target.Control(1);
-
-                    turnOrder [turn] = 3;
-             deathenemies ++;
-             Debug.Log("è morto");
-
-             if (deathenemies == 2 ){
-
-               state = Battlestate.Won;
-               EndBattle();
-
-             }
             
-         }
-         changeturn();
+            for(int i= 0; i <= 3; i++) {
+
+                if (turnOrder[i] == Target.selected && EnemyOrUs[i] == 1) {
+                    turnOrder[i] = 3;
+                }
+
+            }
+            deathEnemies++;
+            
+            if (deathEnemies < 2) {
+                Target.Control(1);
+            }
+            
+            if (deathEnemies == 2 ){
+                Debug.Log("entrato");
+                state = Battlestate.Won;
+               EndBattle();
+                yield return null;
+             }
+        }
+        yield return new WaitForSeconds(2f);
+        changeturn();
     }
 
     IEnumerator PlayerHeal() {
@@ -208,7 +184,7 @@ public class BattleSystem : MonoBehaviour
 
 
 
-        void changeturn() {
+      public  void changeturn() {
             if (turn == 3) {
             turn = 0;
         }
@@ -220,13 +196,13 @@ public class BattleSystem : MonoBehaviour
         if (EnemyOrUs[turn] == 0) {
             state = Battlestate.PlayerTurn;
             playerturn();
-            Debug.Log("il turno è" + turn);
+            Debug.Log("il turno è " + turn);
             Activeturn.IndicateTurn();
         }
         else {
             state = Battlestate.EnemyTurn;
-            StartCoroutine(EnemyTurn());
-            Debug.Log("il turno è" + turn);
+            EnemyTurn();
+            Debug.Log("il turno è " + turn);
             Activeturn.IndicateTurn();
         }}
 
@@ -254,19 +230,19 @@ public class BattleSystem : MonoBehaviour
 
     
     
-
-    
-    
-    
-    
-    
-    void EndBattle(){
+    public void EndBattle(){
     if(state == Battlestate.Won) {
 
     }
     
     
     }
+    
+
+    
+    
+    
+    
 
 
 
