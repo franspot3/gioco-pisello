@@ -32,6 +32,7 @@ public class BattleSystem : MonoBehaviour
     public MyInputSystem Target;
     public activeturn Activeturn;
     public EnemyAi EnemyAi;
+    public PlayerAction PlayerAction;
 
 
     public BattleHUD[] playerHUD;
@@ -133,57 +134,6 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-
-    IEnumerator PlayerAttack() {
-
-    
-        bool ËMorto = enemyUnit[Target.selected].TakeDamage(calculator.DmgCalculator(playerUnit[turnOrder[turn]].Attack));
-        enemyHUD[Target.selected].SetHp(enemyUnit[Target.selected].CurrentHp);
-
-
-         
-
-        //controlla se nemico morto o no
-
-        if (ËMorto) {
-            
-            for(int i= 0; i <= 3; i++) {
-
-                if (turnOrder[i] == Target.selected && EnemyOrUs[i] == 1) {
-                    turnOrder[i] = 3;
-                }
-
-            }
-            deathEnemies++;
-            
-            if (deathEnemies < 2) {
-                Target.Control(1);
-            }
-            
-            if (deathEnemies == 2 ){
-                Debug.Log("entrato");
-                state = Battlestate.Won;
-               EndBattle();
-                yield return null;
-             }
-        }
-        yield return new WaitForSeconds(2f);
-        changeturn();
-    }
-
-    IEnumerator PlayerHeal() {
-        playerUnit[turnOrder[turn]].Heal(calculator.HealCalculator(playerUnit[turnOrder[turn]].MagicAttack));
-
-        playerHUD[turnOrder[turn]].SetHp(playerUnit[turnOrder[turn]].CurrentHp);
-
-        yield return new WaitForSeconds(2f);
-
-       changeturn();
-    }
-
-
-
-
       public  void changeturn() {
             if (turn == 3) {
             turn = 0;
@@ -212,7 +162,7 @@ public class BattleSystem : MonoBehaviour
             return;
 
         state = Battlestate.Neutral;
-        StartCoroutine(PlayerAttack());
+        StartCoroutine(PlayerAction.PlayerAttack());
 
 
     }
@@ -223,7 +173,7 @@ public class BattleSystem : MonoBehaviour
             return;
 
         state = Battlestate.Neutral;
-        StartCoroutine(PlayerHeal());
+        StartCoroutine(PlayerAction.PlayerHeal());
 
 
     }
@@ -232,23 +182,8 @@ public class BattleSystem : MonoBehaviour
     
     public void EndBattle(){
     if(state == Battlestate.Won) {
-
     }
-    
-    
     }
-    
-
-    
-    
-    
-    
-
-
-
-    
-
- 
 
 
 }

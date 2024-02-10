@@ -52,6 +52,7 @@ public class EnemyAi : MonoBehaviour {
 
                     BattleSystem.state = Battlestate.Lost;
                     BattleSystem.EndBattle();
+                    yield break;
                 }
             }
             BattleSystem.changeturn();

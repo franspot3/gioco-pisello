@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHp: 50
-  CurrentHp: 1
+  CurrentHp: 38
   MaxMana: 50
   CurrentMana: 50
   Armor: 50
