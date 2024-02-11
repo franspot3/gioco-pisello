@@ -11,9 +11,9 @@ public class BattleSystem : MonoBehaviour
 
 
    public int turn = 0;
-   public int[] turnOrder = new int[4] {1,2,3,4};
-   public int[] EnemyOrUs = new int[4] {0,0,1,1};
-
+   public int[] turnOrder = new int[6] {0,1,2,0,1,2};
+   public int[] EnemyOrUs = new int[6] {0,0,0,1,1,1};
+   
     public GameObject[] PlayerUnit;
     public GameObject[] EnemyUnit;
 
@@ -40,18 +40,20 @@ public class BattleSystem : MonoBehaviour
 
 
     public Battlestate state;
- 
+    
 
     void Start()
     {
+        
         state = Battlestate.Start;
         StartCoroutine(StartBattle());
     }
 
 
    IEnumerator StartBattle() {
-        int[] SpeedStats = new int[4];
-    for(int i=0; i<=1; i++){
+           
+        int[] SpeedStats = new int[6];
+    for(int i=0; i<=PlayerUnit.Length-1; i++){
        GameObject playerGO = Instantiate (PlayerUnit[i], PlayerSpawn[i]);
         playerUnit[i] = playerGO.GetComponent<Unit>();
 
@@ -68,9 +70,9 @@ public class BattleSystem : MonoBehaviour
 
 
 
-        for(int i=0; i <= 1; i++) {
+        for (int i = 0; i <= PlayerUnit.Length - 1; i++) {
             SpeedStats[i] = playerUnit[i].Speed;
-            SpeedStats[i+2] = enemyUnit[i].Speed;
+            SpeedStats[i + PlayerUnit.Length - 1] = enemyUnit[i].Speed;
         }
         int temp;
         int temp2;
@@ -78,6 +80,7 @@ public class BattleSystem : MonoBehaviour
         for (int j = 0; j < (SpeedStats.Length - 1); j++)
             for (int i = 0; i < (SpeedStats.Length - 1); i++)
                 if (SpeedStats[i] < SpeedStats[i + 1]) {
+                  
                     temp = SpeedStats[i];
                     SpeedStats[i] = SpeedStats[i + 1];
                     SpeedStats[i + 1] = temp;
@@ -88,13 +91,6 @@ public class BattleSystem : MonoBehaviour
                     EnemyOrUs[i] = EnemyOrUs[i + 1];
                     EnemyOrUs[i + 1] = temp3;
                 }
-        for (int j = 0; j <= 3; j++) {
-            if (turnOrder[j]== 1 || turnOrder[j]== 3 ) {
-                turnOrder[j] = 0;
-            } else { 
-                turnOrder[j] = 1;
-            }
-        }
         if (EnemyOrUs[turn] == 0) {
             state = Battlestate.PlayerTurn;
             playerturn();
@@ -111,7 +107,7 @@ public class BattleSystem : MonoBehaviour
         // serve per le scritte dopo penso
 
         Debug.Log(turnOrder[turn]);
-
+        //attento cambiare dopo
         if (turnOrder[turn] == 2 ){
 
         changeturn();
@@ -135,7 +131,7 @@ public class BattleSystem : MonoBehaviour
     }
 
       public  void changeturn() {
-            if (turn == 3) {
+            if (turn == 5) {
             turn = 0;
         }
         else {
@@ -184,8 +180,6 @@ public class BattleSystem : MonoBehaviour
     if(state == Battlestate.Won) {
     }
     }
-
+    
 
 }
-
-

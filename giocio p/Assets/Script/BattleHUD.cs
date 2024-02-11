@@ -11,7 +11,7 @@ public class BattleHUD : MonoBehaviour
     public Slider HpSlider;
 
     public void SetHUD(Unit unit){
-
+        Debug.Log("ciao");
         HpSlider.maxValue = unit.MaxHp;
         HpSlider.value = unit.CurrentHp;
      }

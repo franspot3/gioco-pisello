@@ -4,7 +4,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class PlayerAction : MonoBehaviour {
-
+ 
 
     public BattleSystem BattleSystem;
     public IEnumerator PlayerAttack() {
@@ -20,7 +20,7 @@ public class PlayerAction : MonoBehaviour {
 
         if (ËMorto) {
 
-            for (int i = 0; i <= 3; i++) {
+            for (int i = 0; i <= BattleSystem.turnOrder.Length - 1; i++) {
 
                 if (BattleSystem.turnOrder[i] == BattleSystem.Target.selected && BattleSystem.EnemyOrUs[i] == 1) {
                     BattleSystem.turnOrder[i] = 3;
@@ -29,11 +29,11 @@ public class PlayerAction : MonoBehaviour {
             }
             BattleSystem.deathEnemies++;
 
-            if (BattleSystem.deathEnemies < 2) {
+            if (BattleSystem.deathEnemies < BattleSystem.PlayerUnit.Length ) {
                 BattleSystem.Target.Control(1);
             }
 
-            if (BattleSystem.deathEnemies == 2) {
+            if (BattleSystem.deathEnemies == BattleSystem.PlayerUnit.Length) {
                 Debug.Log("entrato");
                 BattleSystem.state = Battlestate.Won;
                 BattleSystem.EndBattle();

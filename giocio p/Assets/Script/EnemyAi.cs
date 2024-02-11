@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyAi : MonoBehaviour {
 
-
     public BattleSystem BattleSystem;
 
     public void AIDecison() {
@@ -14,7 +13,7 @@ public class EnemyAi : MonoBehaviour {
         Debug.Log("mi ha chiamato");
 
         int EnemyTarget;
-        EnemyTarget = Random.Range(0, 2);
+        EnemyTarget = Random.Range(0, 3);
 
         if (BattleSystem.playerUnit[EnemyTarget].CurrentHp <= 0) {
             Debug.Log("non puoi");
@@ -38,7 +37,7 @@ public class EnemyAi : MonoBehaviour {
 
 
             if (èMorto) {
-                for (int i = 0; i <= 3; i++) {
+                for (int i = 0; i <= BattleSystem.turnOrder.Length - 1; i++) {
                     if (BattleSystem.turnOrder[i] == EnemyTarget && BattleSystem.EnemyOrUs[i] == 0) {
                         BattleSystem.turnOrder[i] = 2;
                         Debug.Log(BattleSystem.turnOrder[i]);
@@ -48,7 +47,7 @@ public class EnemyAi : MonoBehaviour {
 
                 BattleSystem.deathplayers++;
 
-                if (BattleSystem.deathplayers == 2) {
+                if (BattleSystem.deathplayers == BattleSystem.PlayerUnit.Length) {
 
                     BattleSystem.state = Battlestate.Lost;
                     BattleSystem.EndBattle();

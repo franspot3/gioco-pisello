@@ -56,11 +56,11 @@ public class MyInputSystem : MonoBehaviour
         while(finish == false) {
          Debug.Log("controllato");
         ControlSelected += direction;
-            if (ControlSelected == 2) {
+            if (ControlSelected == 3) {
                 ControlSelected = 0;
             }
             else if (ControlSelected == -1) {
-                ControlSelected = 1;
+                ControlSelected = 2;
             }
 
             if (BattleSystem.enemyUnit[ControlSelected].CurrentHp > 0) {
