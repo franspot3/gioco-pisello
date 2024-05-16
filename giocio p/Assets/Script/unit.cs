@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour {
+struct Stats{
     public int MaxHp;
     public int CurrentHp;
     public int MaxMana;
@@ -22,8 +22,11 @@ public class Unit : MonoBehaviour {
     public int Accuracy;
     public int CurrentAccuracy;
     public int Evasion;
-    public int CurrentEvasion;
+    public int CurrentEvasion;}
+    
 
+public class Unit : MonoBehaviour {
+    public Stats Stat;
 
     public bool TakeDamage(int Dmg){
 
